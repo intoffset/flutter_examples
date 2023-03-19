@@ -18,7 +18,6 @@ Future<void> main() async {
 class ThemeModeExampleApp extends ConsumerWidget {
   const ThemeModeExampleApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
@@ -33,7 +32,7 @@ class ThemeModeExampleApp extends ConsumerWidget {
 
 ThemeData _buildTheme(Brightness brightness) {
   return ThemeData(
-    // useMaterial3: true,
+    useMaterial3: true,
     brightness: brightness,
   );
 }
