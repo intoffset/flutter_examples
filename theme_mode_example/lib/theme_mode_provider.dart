@@ -23,8 +23,6 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
       case ThemeMode.system:
         themeMode = ThemeMode.light;
         break;
-      default:
-        throw UnimplementedError();
     }
     await _saveThemeMode(themeMode).then((value) {
       if (value == true) {
