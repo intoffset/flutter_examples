@@ -32,7 +32,6 @@ class ThemeModeExampleApp extends ConsumerWidget {
 
 ThemeData _buildTheme(Brightness brightness) {
   return ThemeData(
-    useMaterial3: true,
     brightness: brightness,
   );
 }

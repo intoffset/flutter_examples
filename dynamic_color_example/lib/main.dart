@@ -17,6 +17,7 @@ class DynamicColorExampleApp extends StatelessWidget {
         theme: _buildTheme(Brightness.light, lightColorScheme),
         darkTheme: _buildTheme(Brightness.dark, darkColorScheme),
         home: const HomeScreen(),
+        themeMode: ThemeMode.system,
       ),
     );
   }
@@ -24,7 +25,6 @@ class DynamicColorExampleApp extends StatelessWidget {
 
 ThemeData _buildTheme(Brightness brightness, ColorScheme? colorScheme) {
   return ThemeData(
-    useMaterial3: true,
     brightness: brightness,
     colorScheme: colorScheme,
   );
