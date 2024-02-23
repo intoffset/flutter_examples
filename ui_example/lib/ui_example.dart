@@ -123,7 +123,7 @@ class ErrorSnackBarButton extends StatelessWidget {
           content: Row(
             children: [
               Icon(Icons.error_rounded, color: Theme.of(context).colorScheme.onError),
-              const SizedBox(width: 4),
+              const SizedBox(width: 8),
               Text('Something wrong!', style: TextStyle(color: Theme.of(context).colorScheme.onError)),
             ],
           ),
