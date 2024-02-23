@@ -2,8 +2,8 @@ library ui_example;
 
 import 'package:flutter/material.dart';
 
-class UiExamples extends StatelessWidget {
-  const UiExamples({super.key});
+class UiExample extends StatelessWidget {
+  const UiExample({super.key});
 
   @override
   Widget build(BuildContext context) {

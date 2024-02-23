@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: UiExamples(),
+        child: UiExample(),
       ),
     );
   }

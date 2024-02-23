@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       drawer: const HomeDrawer(),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: UiExamples(),
+        child: UiExample(),
       ),
     );
   }
