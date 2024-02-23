@@ -11,20 +11,14 @@ class UiExamples extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FormExample(),
+        Padding(padding: EdgeInsets.symmetric(vertical: 12.0), child: Divider()),
+        TextFieldVariants(),
         SizedBox(height: 16),
-        TextFieldExamples(),
-        SizedBox(height: 16),
-        ButtonExamples(),
-        SizedBox(height: 16),
-        SnackBarButton(),
-        SizedBox(height: 16),
-        ErrorSnackBarButton(),
-        SizedBox(height: 16),
-        FabExamples(),
+        ButtonVariants(),
         SizedBox(height: 16),
         SegmentedButtonExample(),
         SizedBox(height: 16),
-        SliderExample(),
+        SnackbarExamples(),
         SizedBox(height: 16),
         CardExample(),
         SizedBox(height: 16),
@@ -41,40 +35,34 @@ class FormExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card.outlined(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const FormTextFields(),
-            const SizedBox(height: 16),
-            const SwitchExample(title: 'Enable option'),
-            const SizedBox(height: 16),
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(child: FormRadioButtons()),
-                Flexible(child: FormCheckBoxes()),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Save'),
-                ),
-                const SizedBox(width: 8),
-                FilledButton(
-                  onPressed: () {},
-                  child: const Text('Submit'),
-                ),
-              ],
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const FormTextFields(),
+          const SizedBox(height: 16),
+          Text('Your score', style: Theme.of(context).textTheme.bodyLarge),
+          const SliderExample(),
+          const SizedBox(height: 16),
+          const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(child: GenderRadioButtons()),
+              Flexible(child: DeviceCheckBoxes()),
+            ],
+          ),
+          const SwitchExample(title: 'Enable option'),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              OutlinedButton(child: const Text('Cancel'), onPressed: () {}),
+              const SizedBox(width: 8),
+              FilledButton(child: const Text('Submit'), onPressed: () {}),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -111,21 +99,19 @@ class FormTextFields extends StatelessWidget {
   }
 }
 
-class FormCheckBoxes extends StatelessWidget {
-  const FormCheckBoxes({super.key});
+class DeviceCheckBoxes extends StatelessWidget {
+  const DeviceCheckBoxes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text('Select yoru device'),
-        CheckboxExample(title: 'iOS'),
-        CheckboxExample(title: 'Android'),
-        CheckboxExample(title: 'Mac'),
-        CheckboxExample(title: 'Windows'),
-        CheckboxExample(title: 'Linux'),
+        Text('Your device', style: Theme.of(context).textTheme.bodyLarge),
+        const CheckboxExample(title: 'iOS'),
+        const CheckboxExample(title: 'Android'),
+        const CheckboxExample(title: 'Mac'),
+        const CheckboxExample(title: 'Windows'),
       ],
     );
   }
@@ -133,14 +119,14 @@ class FormCheckBoxes extends StatelessWidget {
 
 enum Gender { male, female, other }
 
-class FormRadioButtons extends StatefulWidget {
-  const FormRadioButtons({super.key});
+class GenderRadioButtons extends StatefulWidget {
+  const GenderRadioButtons({super.key});
 
   @override
-  State<FormRadioButtons> createState() => _FormRadioButtonsState();
+  State<GenderRadioButtons> createState() => _GenderRadioButtonsState();
 }
 
-class _FormRadioButtonsState extends State<FormRadioButtons> {
+class _GenderRadioButtonsState extends State<GenderRadioButtons> {
   Gender? _selected = Gender.male;
   void onChanged(Gender? v) => setState(() {
         _selected = v;
@@ -149,9 +135,8 @@ class _FormRadioButtonsState extends State<FormRadioButtons> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text('Select yoru gender'),
+        Text('Your gender', style: Theme.of(context).textTheme.bodyLarge),
         RadioListTile<Gender>(
             value: Gender.male, groupValue: _selected, onChanged: onChanged, title: const Text('Male')),
         RadioListTile<Gender>(
@@ -163,8 +148,8 @@ class _FormRadioButtonsState extends State<FormRadioButtons> {
   }
 }
 
-class TextFieldExamples extends StatelessWidget {
-  const TextFieldExamples({super.key});
+class TextFieldVariants extends StatelessWidget {
+  const TextFieldVariants({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -186,39 +171,60 @@ class TextFieldExamples extends StatelessWidget {
   }
 }
 
-class ButtonExamples extends StatelessWidget {
-  const ButtonExamples({super.key});
+class ButtonVariants extends StatelessWidget {
+  const ButtonVariants({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      spacing: 12,
+      runSpacing: 12,
       children: [
         ElevatedButton(
           onPressed: () {},
           child: const Text('Button'),
         ),
-        const SizedBox(width: 12),
         FilledButton(
           onPressed: () {},
           child: const Text('Button'),
         ),
-        const SizedBox(width: 12),
         OutlinedButton(
           onPressed: () {},
           child: const Text('Button'),
         ),
-        const SizedBox(width: 12),
         TextButton(
           onPressed: () {},
           child: const Text('Button'),
+        ),
+        FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add_rounded),
+        ),
+        FloatingActionButton.extended(
+          onPressed: () {},
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('ADD'),
         ),
       ],
     );
   }
 }
 
-class SnackBarButton extends StatelessWidget {
-  const SnackBarButton({super.key});
+class SnackbarExamples extends StatelessWidget {
+  const SnackbarExamples({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [SnackbarButton(), ErrorSnackbarButton()],
+    );
+  }
+}
+
+class SnackbarButton extends StatelessWidget {
+  const SnackbarButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -234,8 +240,8 @@ class SnackBarButton extends StatelessWidget {
   }
 }
 
-class ErrorSnackBarButton extends StatelessWidget {
-  const ErrorSnackBarButton({super.key});
+class ErrorSnackbarButton extends StatelessWidget {
+  const ErrorSnackbarButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -254,28 +260,6 @@ class ErrorSnackBarButton extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class FabExamples extends StatelessWidget {
-  const FabExamples({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.add_rounded),
-        ),
-        const SizedBox(width: 12),
-        FloatingActionButton.extended(
-          onPressed: () {},
-          icon: const Icon(Icons.add_rounded),
-          label: const Text('ADD'),
-        ),
-      ],
     );
   }
 }
