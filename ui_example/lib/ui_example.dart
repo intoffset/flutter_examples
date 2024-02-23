@@ -10,6 +10,8 @@ class UiExamples extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        FormExample(),
+        SizedBox(height: 16),
         TextFieldExamples(),
         SizedBox(height: 16),
         ButtonExamples(),
@@ -22,10 +24,6 @@ class UiExamples extends StatelessWidget {
         SizedBox(height: 16),
         SegmentedButtonExample(),
         SizedBox(height: 16),
-        SwitchExample(),
-        SizedBox(height: 16),
-        CheckboxExample(),
-        SizedBox(height: 16),
         SliderExample(),
         SizedBox(height: 16),
         CardExample(),
@@ -33,6 +31,133 @@ class UiExamples extends StatelessWidget {
         FilledCardExample(),
         SizedBox(height: 16),
         OutlinedCardExample(),
+      ],
+    );
+  }
+}
+
+class FormExample extends StatelessWidget {
+  const FormExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card.outlined(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const FormTextFields(),
+            const SizedBox(height: 16),
+            const SwitchExample(title: 'Enable option'),
+            const SizedBox(height: 16),
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(child: FormRadioButtons()),
+                Flexible(child: FormCheckBoxes()),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedButton(
+                  onPressed: () {},
+                  child: const Text('Save'),
+                ),
+                const SizedBox(width: 8),
+                FilledButton(
+                  onPressed: () {},
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FormTextFields extends StatelessWidget {
+  const FormTextFields({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Row(
+          children: [
+            Flexible(
+              child: TextField(
+                decoration: InputDecoration(label: Text('First name'), filled: true),
+              ),
+            ),
+            SizedBox(width: 16),
+            Flexible(
+              child: TextField(
+                decoration: InputDecoration(label: Text('Last name'), filled: true),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        TextField(
+          decoration: InputDecoration(label: Text('Email'), filled: true),
+        ),
+      ],
+    );
+  }
+}
+
+class FormCheckBoxes extends StatelessWidget {
+  const FormCheckBoxes({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const Text('Select yoru device'),
+        CheckboxExample(title: 'iOS'),
+        CheckboxExample(title: 'Android'),
+        CheckboxExample(title: 'Mac'),
+        CheckboxExample(title: 'Windows'),
+        CheckboxExample(title: 'Linux'),
+      ],
+    );
+  }
+}
+
+enum Gender { male, female, other }
+
+class FormRadioButtons extends StatefulWidget {
+  const FormRadioButtons({super.key});
+
+  @override
+  State<FormRadioButtons> createState() => _FormRadioButtonsState();
+}
+
+class _FormRadioButtonsState extends State<FormRadioButtons> {
+  Gender? _selected = Gender.male;
+  void onChanged(Gender? v) => setState(() {
+        _selected = v;
+      });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const Text('Select yoru gender'),
+        RadioListTile<Gender>(
+            value: Gender.male, groupValue: _selected, onChanged: onChanged, title: const Text('Male')),
+        RadioListTile<Gender>(
+            value: Gender.female, groupValue: _selected, onChanged: onChanged, title: const Text('Female')),
+        RadioListTile<Gender>(
+            value: Gender.other, groupValue: _selected, onChanged: onChanged, title: const Text('Other')),
       ],
     );
   }
@@ -247,7 +372,8 @@ class OutlinedCardExample extends StatelessWidget {
 }
 
 class SwitchExample extends StatefulWidget {
-  const SwitchExample({super.key});
+  final String title;
+  const SwitchExample({super.key, required this.title});
 
   @override
   State<SwitchExample> createState() => _SwitchExampleState();
@@ -258,7 +384,7 @@ class _SwitchExampleState extends State<SwitchExample> {
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(
-      title: const Text('Switch'),
+      title: Text(widget.title),
       value: value,
       onChanged: (newValue) => setState(() {
         value = newValue;
@@ -269,7 +395,8 @@ class _SwitchExampleState extends State<SwitchExample> {
 }
 
 class CheckboxExample extends StatefulWidget {
-  const CheckboxExample({super.key});
+  final String title;
+  const CheckboxExample({super.key, required this.title});
 
   @override
   State<CheckboxExample> createState() => _CheckboxExampleState();
@@ -280,7 +407,7 @@ class _CheckboxExampleState extends State<CheckboxExample> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: const Text('Check box'),
+      title: Text(widget.title),
       value: isChecked,
       onChanged: (newValue) => setState(() {
         isChecked = newValue!;
