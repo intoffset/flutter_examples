@@ -14,6 +14,10 @@ class UiExamples extends StatelessWidget {
         SizedBox(height: 16),
         ButtonExamples(),
         SizedBox(height: 16),
+        SnackBarButton(),
+        SizedBox(height: 16),
+        ErrorSnackBarButton(),
+        SizedBox(height: 16),
         FabExamples(),
         SizedBox(height: 16),
         SegmentedButtonExample(),
@@ -84,6 +88,47 @@ class ButtonExamples extends StatelessWidget {
           child: const Text('Button'),
         ),
       ],
+    );
+  }
+}
+
+class SnackBarButton extends StatelessWidget {
+  const SnackBarButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: const Text('Show Snackbar'),
+      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          showCloseIcon: true,
+          content: Text('Something happend!'),
+        ),
+      ),
+    );
+  }
+}
+
+class ErrorSnackBarButton extends StatelessWidget {
+  const ErrorSnackBarButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: const Text('Show Error Snackbar'),
+      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.error,
+          showCloseIcon: true,
+          content: Row(
+            children: [
+              Icon(Icons.error_rounded, color: Theme.of(context).colorScheme.onError),
+              const SizedBox(width: 4),
+              Text('Something wrong!', style: TextStyle(color: Theme.of(context).colorScheme.onError)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
