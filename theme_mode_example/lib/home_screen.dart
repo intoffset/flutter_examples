@@ -14,9 +14,14 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const HomeDrawer(),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: UiExample(),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: const UiExample(),
+          ),
+        ),
       ),
     );
   }
